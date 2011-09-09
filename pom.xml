@@ -14,19 +14,6 @@
     <jackson.version>1.8.5</jackson.version>
 	</properties>
 
-  <!--<repositories>-->
-    <!--<repository>-->
-      <!--<id>Sonatype OSS</id>-->
-      <!--<url>http://oss.sonatype.org/content/repositories/releases/</url>-->
-      <!--<snapshots>-->
-        <!--<enabled>false</enabled>-->
-      <!--</snapshots>-->
-      <!--<releases>-->
-        <!--<enabled>true</enabled>-->
-      <!--</releases>-->
-    <!--</repository>-->
-  <!--</repositories>-->
-
   <dependencies>
     <dependency>
       <groupId>org.slf4j</groupId>
