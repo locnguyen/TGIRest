@@ -13,11 +13,11 @@ public class TGIRestWatcher extends TestWatcher {
 
   @Override
   protected void succeeded(Description description) {
-    LOG.info(description.getDisplayName() + ": success!\n");
+    LOG.info(description.getDisplayName() + ": success!");
   }
 
   @Override
   protected void failed(Throwable e, Description description) {
-    LOG.info(description.getDisplayName() + ": failure!\n");
+    LOG.info(description.getDisplayName() + ": failure!");
   }
 }
