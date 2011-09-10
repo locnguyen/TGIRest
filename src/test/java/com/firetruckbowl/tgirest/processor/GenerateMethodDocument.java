@@ -13,17 +13,19 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.hasItems;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -122,6 +124,36 @@ public class GenerateMethodDocument {
     assertThat(document.getResponseErrors().get(0).getStatus(), is(Response.Status.NOT_FOUND.getStatusCode()));
   }
 
+  @Test
+  @SuppressWarnings("")
+  public void shouldGetMediaProduced() throws Exception {
+    // given
+    FooResource resource = new FooResource();
+    Method m = resource.getClass().getMethod("getBar", String.class);
+
+    // when
+    MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
+
+    // then
+    List<String> types = Arrays.asList(document.getMediaTypesProduced());
+    assertThat(types, hasItems(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML));
+  }
+
+  @Test
+  @SuppressWarnings("")
+  public void shouldGetMediaConsumed() throws Exception {
+    // given
+    FooResource resource = new FooResource();
+    Method m = resource.getClass().getMethod("getBar", String.class);
+
+    // when
+    MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
+
+    // then
+    List<String> types = Arrays.asList(document.getMediaTypesConsumed());
+    assertThat(types, hasItems(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML));
+  }
+
   /**
    * A class for use with testing only since we don't want to rely on the
    * library's actual resource classes staying the same.
@@ -131,6 +163,8 @@ public class GenerateMethodDocument {
 
     @GET
     @Path("bar/{id}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @ResourceMethod(
       status = Response.Status.OK,
       description = "bar method",

@@ -11,8 +11,10 @@ import com.firetruckbowl.tgirest.resource.Documented;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import java.lang.annotation.Annotation;
@@ -50,7 +52,7 @@ public class TGIRestDocumenter implements Documenter {
   public MethodDocument generateMethodDocument(@Context UriInfo uriInfo, Method method) {
     MethodDocument md = new MethodDocument();
 
-    // Process JAX-RS annotations
+    // --- Process JAX-RS annotations
     Path path = method.getAnnotation(Path.class);
     if (path != null) {
       md.setPath(uriInfo.getBaseUri().toString() + path.value());
@@ -58,8 +60,18 @@ public class TGIRestDocumenter implements Documenter {
 
     md.setHttpMethod(getHttpMethod(method));
 
+    Produces produces = method.getAnnotation(Produces.class);
+    if (produces != null) {
+      md.setMediaTypesProduced(produces.value());
+    }
 
-    // Process TGIRest annotations
+    Consumes consumes = method.getAnnotation(Consumes.class);
+    if (consumes != null) {
+      md.setMediaTypesConsumed(consumes.value());
+    }
+
+
+    // --- Process TGIRest annotations
     ResourceMethod resourceMethod = method.getAnnotation(ResourceMethod.class);
     if (resourceMethod != null) {
       md.setStatus(resourceMethod.status().getStatusCode());
