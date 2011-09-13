@@ -181,6 +181,21 @@ public class GenerateMethodDocument {
     assertThat(queryParams, hasItems("t", "l"));
   }
 
+  @Test
+  @SuppressWarnings("")
+  public void shouldGetPathParams() throws Exception {
+    // given
+    FooResource resource = new FooResource();
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
+
+    // when
+    MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
+
+    // then
+    List<String> pathParams = Arrays.asList(document.getPathParams());
+    assertThat(pathParams, hasItems("id"));
+  }
+
   /**
    * A class for use with testing only since we don't want to rely on the
    * library's actual resource classes staying the same.

@@ -124,9 +124,9 @@ public class MethodDocument {
     this.queryParams = queryParams;
   }
 
-  public void setQueryParams(List<String> queryParams) {
-    this.queryParams = new String[queryParams.size()];
-    queryParams.toArray(this.queryParams);
+  public void setQueryParams(List<String> qParams) {
+    this.queryParams = new String[qParams.size()];
+    qParams.toArray(this.queryParams);
   }
 
   public String[] getPathParams() {
@@ -135,5 +135,10 @@ public class MethodDocument {
 
   public void setPathParams(String[] pathParams) {
     this.pathParams = pathParams;
+  }
+
+  public void setPathParams(List<String> pParams) {
+    this.pathParams = new String[pParams.size()];
+    pParams.toArray(this.pathParams);
   }
 }

@@ -69,17 +69,21 @@ public class TGIRestDocumenter implements Documenter {
 
     // Gets a 2-D array of params, and each param has an array of annotations
     Annotation[][] methodPrams = method.getParameterAnnotations();
-    List<String> queryParamList = new ArrayList<String>();
+    List<String> queryParamsList = new ArrayList<String>();
+    List<String> pathParamsList = new ArrayList<String>();
 
     if (methodPrams != null && methodPrams.length > 0) {
       for (int i = 0; i < methodPrams.length; i ++) {
         for (Annotation a: methodPrams[i]) {
           if (a.annotationType() == QueryParam.class) {
-            QueryParam qp = (QueryParam) a;
-            queryParamList.add(qp.value());
+            queryParamsList.add(((QueryParam) a).value());
+          }
+          else if (a.annotationType() == PathParam.class) {
+            pathParamsList.add(((PathParam) a).value());
           }
         }
-        md.setQueryParams(queryParamList);
+        md.setQueryParams(queryParamsList);
+        md.setPathParams(pathParamsList);
       }
     }
 
