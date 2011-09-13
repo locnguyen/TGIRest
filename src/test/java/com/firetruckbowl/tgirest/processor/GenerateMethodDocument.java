@@ -154,6 +154,21 @@ public class GenerateMethodDocument {
     assertThat(types, hasItems(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML));
   }
 
+  @Test
+  @SuppressWarnings("")
+  public void shouldGetLanguages() throws Exception {
+    // given
+    FooResource resource = new FooResource();
+    Method m = resource.getClass().getMethod("getBar", String.class);
+
+    // when
+    MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
+
+    // then
+    List<String> types = Arrays.asList(document.getLanguages());
+    assertThat(types, hasItems("vi", "en"));
+  }
+
   /**
    * A class for use with testing only since we don't want to rely on the
    * library's actual resource classes staying the same.
@@ -170,7 +185,9 @@ public class GenerateMethodDocument {
       description = "bar method",
       errors = {
         @MethodError(status = Response.Status.NOT_FOUND, cause = "The bar could not be found")
-    })
+      },
+      languages = {"en", "vi"}
+    )
     public Response getBar(@PathParam("id") String id) {
       return Response.status(Response.Status.OK).build();
     }

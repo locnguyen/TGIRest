@@ -79,6 +79,8 @@ public class TGIRestDocumenter implements Documenter {
       md.setDescription(resourceMethod.description());
 
       md.setResponseErrors(getResponseErrors(resourceMethod));
+
+      md.setLanguages(resourceMethod.languages());
     }
 
     return md;

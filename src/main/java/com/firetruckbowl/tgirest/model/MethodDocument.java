@@ -5,6 +5,9 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+/**
+ * @author <a href="mailto:lochnguyen@gmail.com">Loc Nguyen</a>
+ */
 @XmlRootElement(name = "MethodDocument")
 public class MethodDocument {
 
@@ -36,6 +39,10 @@ public class MethodDocument {
   /* An array of media types this method can consume */
   @XmlElementWrapper(name = "MediaTypesConsumed")
   private String[] mediaTypesConsumed;
+
+  /* An array of languages this method can produce */
+  @XmlElementWrapper(name = "Languages")
+  private String[] languages;
 
   public String getPath() {
     return path;
@@ -91,5 +98,13 @@ public class MethodDocument {
 
   public void setMediaTypesConsumed(String[] mediaTypesConsumed) {
     this.mediaTypesConsumed = mediaTypesConsumed;
+  }
+
+  public String[] getLanguages() {
+    return languages;
+  }
+
+  public void setLanguages(String[] languages) {
+    this.languages = languages;
   }
 }
