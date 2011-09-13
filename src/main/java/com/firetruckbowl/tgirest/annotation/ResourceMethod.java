@@ -6,6 +6,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Arrays;
 
 /**
  * @author <a href="mailto:lochnguyen@gmail.com">Loc Nguyen</a>
@@ -16,12 +17,15 @@ public @interface ResourceMethod {
 
   /**
    * A description of how this endpoint changes the state of the resource.
+   * Required so the documentation is actually useful.
+   *
    * @return
    */
   String description();
 
   /**
-   * The HTTP status that that a successful invocation will return.
+   * The HTTP status that that a successful invocation will return. Required
+   * so the client knows when the happy path is complete.
    *
    * @return
    */
@@ -32,5 +36,12 @@ public @interface ResourceMethod {
    *
    * @return
    */
-  MethodError[] errors();
+  MethodError[] errors() default {};
+
+  /**
+   * An array of languages this method supports in representing the resource.
+   *
+   * @return
+   */
+  String[] languages() default {};
 }

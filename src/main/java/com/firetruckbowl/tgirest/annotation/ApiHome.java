@@ -10,14 +10,16 @@ import java.lang.annotation.RetentionPolicy;
 public @interface ApiHome {
 
   /**
-   * The identifying name of your API.
+   * The identifying name of your API. Required so the API
+   * documentation can be identified by a human friendly name.
    *
    * @return your API's name
    */
   String apiName();
 
   /**
-   * A brief description of your API's raison d'detre.
+   * A brief description of your API's raison d'detre. Required to
+   * produce useful documentation.
    *
    * @return your API description
    */

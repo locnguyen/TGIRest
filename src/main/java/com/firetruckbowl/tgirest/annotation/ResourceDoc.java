@@ -11,6 +11,7 @@ public @interface ResourceDoc {
 
   /**
    * A description of what this top level resource's role in the system.
+   * Required so the documentation produced is useful.
    *
    * @return
    */

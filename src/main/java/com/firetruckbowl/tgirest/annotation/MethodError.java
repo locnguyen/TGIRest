@@ -14,13 +14,18 @@ import java.lang.annotation.Target;
 public @interface MethodError {
 
   /**
-   * The HTTP status code for the occurring error.
+   * The HTTP status code for the occurring error. Required if you're
+   * going to document errors at all.
+   *
    * @return
    */
   Response.Status status();
 
   /**
-   * A human friendly message indicating why this error occured.
+   * A human friendly message indicating why this error occurred.
+   * Required so the documentation tells the reader why the error condition
+   * is reached.
+   *
    * @return
    */
   String cause();
