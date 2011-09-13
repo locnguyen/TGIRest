@@ -44,6 +44,14 @@ public class MethodDocument {
   @XmlElementWrapper(name = "Languages")
   private String[] languages;
 
+  /* An array of query parameters this method supports */
+  @XmlElementWrapper(name = "QueryParams")
+  private String[] queryParams;
+
+  /* An array of path parameters this method supports */
+  @XmlElementWrapper(name = "PathParams")
+  private String[] pathParams;
+
   public String getPath() {
     return path;
   }
@@ -106,5 +114,26 @@ public class MethodDocument {
 
   public void setLanguages(String[] languages) {
     this.languages = languages;
+  }
+
+  public String[] getQueryParams() {
+    return queryParams;
+  }
+
+  public void setQueryParams(String[] queryParams) {
+    this.queryParams = queryParams;
+  }
+
+  public void setQueryParams(List<String> queryParams) {
+    this.queryParams = new String[queryParams.size()];
+    queryParams.toArray(this.queryParams);
+  }
+
+  public String[] getPathParams() {
+    return pathParams;
+  }
+
+  public void setPathParams(String[] pathParams) {
+    this.pathParams = pathParams;
   }
 }

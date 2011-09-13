@@ -11,10 +11,7 @@ import com.firetruckbowl.tgirest.resource.Documented;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import java.lang.annotation.Annotation;
@@ -68,6 +65,22 @@ public class TGIRestDocumenter implements Documenter {
     Consumes consumes = method.getAnnotation(Consumes.class);
     if (consumes != null) {
       md.setMediaTypesConsumed(consumes.value());
+    }
+
+    // Gets a 2-D array of params, and each param has an array of annotations
+    Annotation[][] methodPrams = method.getParameterAnnotations();
+    List<String> queryParamList = new ArrayList<String>();
+
+    if (methodPrams != null && methodPrams.length > 0) {
+      for (int i = 0; i < methodPrams.length; i ++) {
+        for (Annotation a: methodPrams[i]) {
+          if (a.annotationType() == QueryParam.class) {
+            QueryParam qp = (QueryParam) a;
+            queryParamList.add(qp.value());
+          }
+        }
+        md.setQueryParams(queryParamList);
+      }
     }
 
 

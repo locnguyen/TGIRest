@@ -14,10 +14,7 @@ import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Arrays;
@@ -58,7 +55,7 @@ public class GenerateMethodDocument {
   public void shouldGetPath() throws Exception {
     // given
     FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class);
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
 
     // when
     MethodDocument document =  systemUnderTest.generateMethodDocument(uriInfo, m);
@@ -72,7 +69,7 @@ public class GenerateMethodDocument {
   public void shouldGetHttpMethod() throws Exception {
     // given
     FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class);
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
 
     // when
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
@@ -86,7 +83,7 @@ public class GenerateMethodDocument {
   public void shouldGetSuccessStatus() throws Exception {
     // given
     FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class);
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
 
     // when
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
@@ -100,7 +97,7 @@ public class GenerateMethodDocument {
   public void shouldGetDescription() throws Exception {
     // given
     FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class);
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
 
     // when
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
@@ -114,7 +111,7 @@ public class GenerateMethodDocument {
   public void shouldGetErrors() throws Exception {
     // given
     FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class);
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
 
     // when
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
@@ -129,7 +126,7 @@ public class GenerateMethodDocument {
   public void shouldGetMediaProduced() throws Exception {
     // given
     FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class);
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
 
     // when
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
@@ -144,7 +141,7 @@ public class GenerateMethodDocument {
   public void shouldGetMediaConsumed() throws Exception {
     // given
     FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class);
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
 
     // when
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
@@ -159,7 +156,7 @@ public class GenerateMethodDocument {
   public void shouldGetLanguages() throws Exception {
     // given
     FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class);
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
 
     // when
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
@@ -167,6 +164,21 @@ public class GenerateMethodDocument {
     // then
     List<String> types = Arrays.asList(document.getLanguages());
     assertThat(types, hasItems("vi", "en"));
+  }
+
+  @Test
+  @SuppressWarnings("")
+  public void shouldGetQueryParams() throws Exception {
+    // given
+    FooResource resource = new FooResource();
+    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
+
+    // when
+    MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
+
+    // then
+    List<String> queryParams = Arrays.asList(document.getQueryParams());
+    assertThat(queryParams, hasItems("t", "l"));
   }
 
   /**
@@ -188,12 +200,14 @@ public class GenerateMethodDocument {
       },
       languages = {"en", "vi"}
     )
-    public Response getBar(@PathParam("id") String id) {
+    public Response getBar(@PathParam("id") String id,
+                           @QueryParam("t") String time,
+                           @QueryParam("l") String location) {
       return Response.status(Response.Status.OK).build();
     }
 
     @Override
-    public Response getDocumentation(@Context UriInfo uriInfo) {
+    public Response getDocumentation(@Context UriInfo uriInfo, @Context HttpHeaders httpHeaders) {
       /* no-op */
       return null;
     }
