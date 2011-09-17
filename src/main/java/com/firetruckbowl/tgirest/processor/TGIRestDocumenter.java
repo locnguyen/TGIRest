@@ -34,17 +34,28 @@ public class TGIRestDocumenter implements Documenter {
   public ResourceDocument generateResourceDocument(@Context UriInfo uriInfo, Documented resource) {
 
     if (!resource.getClass().isAnnotationPresent(ResourceDoc.class)) {
-      throw new RuntimeException("Cannot generate documentation for a resource class"
+      throw new RuntimeException("Cannot generate documentation for a resource class "
           + "that is not annotated with @ResoureceDoc");
     }
 
-    ResourceDocument rd = new ResourceDocument();
+    ResourceDocument resourceDocument = new ResourceDocument();
 
-    for (Method m : resource.getClass().getMethods()) {
-
+    // --- Process JAX-RS annotations
+    Path path = resource.getClass().getAnnotation(Path.class);
+    if (path != null) {
+      resourceDocument.setPath(uriInfo.getBaseUri().toString() + path.value());
     }
 
-    return rd;
+    // --- Process TGIRest annotations
+    ResourceDoc rd = resource.getClass().getAnnotation(ResourceDoc.class);
+    resourceDocument.setDescription(rd.description());
+
+    // -- Generate documentation for each resource method
+    for (Method m : resource.getClass().getMethods()) {
+      resourceDocument.addMethodDocument(generateMethodDocument(uriInfo, m));
+    }
+
+    return resourceDocument;
   }
 
   @Override

@@ -17,7 +17,6 @@ import org.mockito.Mock;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Arrays;

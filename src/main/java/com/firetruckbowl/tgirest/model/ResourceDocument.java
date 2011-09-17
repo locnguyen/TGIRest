@@ -1,6 +1,7 @@
 package com.firetruckbowl.tgirest.model;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +35,14 @@ public class ResourceDocument {
 
   public void setMethodDocuments(List<MethodDocument> methodDocuments) {
     this.methodDocuments = methodDocuments;
+  }
+
+  public void addMethodDocument(MethodDocument methodDocument) {
+    if (this.methodDocuments == null) {
+      this.methodDocuments = new ArrayList<MethodDocument>();
+    }
+
+    this.methodDocuments.add(methodDocument);
   }
 
   public String getPath() {
