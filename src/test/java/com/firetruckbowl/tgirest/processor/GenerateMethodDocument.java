@@ -153,21 +153,6 @@ public class GenerateMethodDocument {
 
   @Test
   @SuppressWarnings("")
-  public void shouldGetLanguages() throws Exception {
-    // given
-    FooResource resource = new FooResource();
-    Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
-
-    // when
-    MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
-
-    // then
-    List<String> types = Arrays.asList(document.getLanguages());
-    assertThat(types, hasItems("vi", "en"));
-  }
-
-  @Test
-  @SuppressWarnings("")
   public void shouldGetQueryParams() throws Exception {
     // given
     FooResource resource = new FooResource();
@@ -212,8 +197,7 @@ public class GenerateMethodDocument {
       description = "bar method",
       errors = {
         @MethodError(status = Response.Status.NOT_FOUND, cause = "The bar could not be found")
-      },
-      languages = {"en", "vi"}
+      }
     )
     public Response getBar(@PathParam("id") String id,
                            @QueryParam("t") String time,

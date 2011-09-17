@@ -11,5 +11,11 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Languages {
+
+  /**
+   * An array of languages a resource or resource method supports.
+   *
+   * @return
+   */
   String[] value() default {};
 }

@@ -37,11 +37,4 @@ public @interface ResourceMethod {
    * @return
    */
   MethodError[] errors() default {};
-
-  /**
-   * An array of languages this method supports in representing the resource.
-   *
-   * @return
-   */
-  String[] languages() default {};
 }
