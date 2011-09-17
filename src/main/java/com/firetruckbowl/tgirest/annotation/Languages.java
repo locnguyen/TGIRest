@@ -8,14 +8,14 @@ import java.lang.annotation.Target;
 /**
  * @author <a href="mailto:lochnguyen@gmail.com">Loc Nguyen</a>
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Languages {
 
   /**
-   * An array of languages a resource or resource method supports.
+   * An array of languages a resource supports.
    *
-   * @return
+   * @return the languages supported by the resource
    */
   String[] value() default {};
 }
