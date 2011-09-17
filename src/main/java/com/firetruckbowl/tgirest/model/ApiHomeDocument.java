@@ -1,5 +1,7 @@
 package com.firetruckbowl.tgirest.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -7,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author <a href="mailto:lochnguyen@gmail.com">Loc Nguyen</a>
  */
 @XmlRootElement(name = "ApiHomeDocument")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ApiHomeDocument extends ResourceDocument {
 
   @XmlElement(name = "ApiName")
@@ -20,6 +23,9 @@ public class ApiHomeDocument extends ResourceDocument {
 
   @XmlElement(name = "ApiContactEmail")
   private String apiContactEmail;
+
+  @XmlElement(name = "ConnegType")
+  private String connegType;
 
   public String getApiName() {
     return apiName;
@@ -51,5 +57,13 @@ public class ApiHomeDocument extends ResourceDocument {
 
   public void setApiContactEmail(String apiContactEmail) {
     this.apiContactEmail = apiContactEmail;
+  }
+
+  public String getConnegType() {
+    return connegType;
+  }
+
+  public void setConnegType(String connegType) {
+    this.connegType = connegType;
   }
 }

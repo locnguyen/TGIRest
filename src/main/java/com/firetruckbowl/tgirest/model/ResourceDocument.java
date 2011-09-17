@@ -1,14 +1,13 @@
 package com.firetruckbowl.tgirest.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
 /**
  * @author <a href="mailto:lochnguyen@gmail.com">Loc Nguyen</a>
  */
 @XmlRootElement(name = "ResourceDocument")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ResourceDocument {
 
   @XmlElement(name = "Path")

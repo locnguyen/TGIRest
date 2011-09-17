@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ApiHome {
+  public enum Conneg { URL, HEADER }
 
   /**
    * The identifying name of your API. Required so the API
@@ -39,4 +40,10 @@ public @interface ApiHome {
    */
   String apiContactEmail() default "";
 
+  /**
+   * Indicates how this API handles content negotiation.
+   *
+   * @return
+   */
+  Conneg connegType() default Conneg.URL;
 }

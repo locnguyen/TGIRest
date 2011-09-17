@@ -1,5 +1,7 @@
 package com.firetruckbowl.tgirest.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -7,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author <a href="mailto:lochnguyen@gmail.com">Loc Nguyen</a>
  */
 @XmlRootElement(name = "ResponseError")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ResponseError {
 
   @XmlElement(name = "Status")
