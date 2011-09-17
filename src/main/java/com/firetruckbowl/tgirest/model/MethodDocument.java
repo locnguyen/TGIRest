@@ -1,5 +1,6 @@
 package com.firetruckbowl.tgirest.model;
 
+import javax.ws.rs.PathParam;
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
@@ -45,11 +46,11 @@ public class MethodDocument {
 
   /* An array of query parameters this method supports */
   @XmlElementWrapper(name = "QueryParams")
-  private String[] queryParams;
+  private ParamDocument[] queryParams;
 
   /* An array of path parameters this method supports */
   @XmlElementWrapper(name = "PathParams")
-  private String[] pathParams;
+  private ParamDocument[] pathParams;
 
   public String getPath() {
     return path;
@@ -115,29 +116,29 @@ public class MethodDocument {
     this.languages = languages;
   }
 
-  public String[] getQueryParams() {
+  public ParamDocument[] getQueryParams() {
     return queryParams;
   }
 
-  public void setQueryParams(String[] queryParams) {
+  public void setQueryParams(ParamDocument[] queryParams) {
     this.queryParams = queryParams;
   }
 
-  public void setQueryParams(List<String> qParams) {
-    this.queryParams = new String[qParams.size()];
+  public void setQueryParams(List<ParamDocument> qParams) {
+    this.queryParams = new ParamDocument[qParams.size()];
     qParams.toArray(this.queryParams);
   }
 
-  public String[] getPathParams() {
+  public ParamDocument[] getPathParams() {
     return pathParams;
   }
 
-  public void setPathParams(String[] pathParams) {
+  public void setPathParams(ParamDocument[] pathParams) {
     this.pathParams = pathParams;
   }
 
-  public void setPathParams(List<String> pParams) {
-    this.pathParams = new String[pParams.size()];
+  public void setPathParams(List<ParamDocument> pParams) {
+    this.pathParams = new ParamDocument[pParams.size()];
     pParams.toArray(this.pathParams);
   }
 }

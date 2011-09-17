@@ -2,8 +2,10 @@ package com.firetruckbowl.tgirest.processor;
 
 import com.firetruckbowl.tgirest.TGIRestWatcher;
 import com.firetruckbowl.tgirest.annotation.MethodError;
+import com.firetruckbowl.tgirest.annotation.ParamNote;
 import com.firetruckbowl.tgirest.annotation.ResourceMethod;
 import com.firetruckbowl.tgirest.model.MethodDocument;
+import com.firetruckbowl.tgirest.model.ParamDocument;
 import com.firetruckbowl.tgirest.resource.Documented;
 import org.junit.Before;
 import org.junit.Rule;
@@ -15,6 +17,7 @@ import org.mockito.Mock;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Arrays;
@@ -153,7 +156,7 @@ public class GenerateMethodDocument {
 
   @Test
   @SuppressWarnings("")
-  public void shouldGetQueryParams() throws Exception {
+  public void shouldGetQueryParamDocs() throws Exception {
     // given
     FooResource resource = new FooResource();
     Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
@@ -162,13 +165,17 @@ public class GenerateMethodDocument {
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
 
     // then
-    List<String> queryParams = Arrays.asList(document.getQueryParams());
-    assertThat(queryParams, hasItems("t", "l"));
+    List<ParamDocument> queryParams = Arrays.asList(document.getQueryParams());
+
+    ParamDocument qpt = new ParamDocument("t", "The time");
+    ParamDocument qpl = new ParamDocument("l", "The location");
+
+    assertThat(queryParams, hasItems(qpt, qpl));
   }
 
   @Test
   @SuppressWarnings("")
-  public void shouldGetPathParams() throws Exception {
+  public void shouldGetPathParamDocs() throws Exception {
     // given
     FooResource resource = new FooResource();
     Method m = resource.getClass().getMethod("getBar", String.class, String.class, String.class);
@@ -177,8 +184,8 @@ public class GenerateMethodDocument {
     MethodDocument document = systemUnderTest.generateMethodDocument(uriInfo, m);
 
     // then
-    List<String> pathParams = Arrays.asList(document.getPathParams());
-    assertThat(pathParams, hasItems("id"));
+    List<ParamDocument> pathParams = Arrays.asList(document.getPathParams());
+    assertThat(pathParams, hasItems(new ParamDocument("id", "The ID of the bar")));
   }
 
   /**
@@ -199,9 +206,12 @@ public class GenerateMethodDocument {
         @MethodError(status = Response.Status.NOT_FOUND, cause = "The bar could not be found")
       }
     )
-    public Response getBar(@PathParam("id") String id,
-                           @QueryParam("t") String time,
-                           @QueryParam("l") String location) {
+    public Response getBar(@PathParam("id")
+                           @ParamNote("The ID of the bar") String id,
+                           @QueryParam("t")
+                           @ParamNote("The time") String time,
+                           @QueryParam("l")
+                           @ParamNote("The location") String location) {
       return Response.status(Response.Status.OK).build();
     }
 

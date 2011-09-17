@@ -2,9 +2,11 @@ package com.firetruckbowl.tgirest.processor;
 
 
 import com.firetruckbowl.tgirest.annotation.MethodError;
+import com.firetruckbowl.tgirest.annotation.ParamNote;
 import com.firetruckbowl.tgirest.annotation.ResourceDoc;
 import com.firetruckbowl.tgirest.annotation.ResourceMethod;
 import com.firetruckbowl.tgirest.model.MethodDocument;
+import com.firetruckbowl.tgirest.model.ParamDocument;
 import com.firetruckbowl.tgirest.model.ResourceDocument;
 import com.firetruckbowl.tgirest.model.ResponseError;
 import com.firetruckbowl.tgirest.resource.Documented;
@@ -69,17 +71,23 @@ public class TGIRestDocumenter implements Documenter {
 
     // Gets a 2-D array of params, and each param has an array of annotations
     Annotation[][] methodPrams = method.getParameterAnnotations();
-    List<String> queryParamsList = new ArrayList<String>();
-    List<String> pathParamsList = new ArrayList<String>();
+    List<ParamDocument> queryParamsList = new ArrayList<ParamDocument>();
+    List<ParamDocument> pathParamsList = new ArrayList<ParamDocument>();
 
     if (methodPrams != null && methodPrams.length > 0) {
       for (int i = 0; i < methodPrams.length; i ++) {
+        ParamDocument pd = new ParamDocument();
         for (Annotation a: methodPrams[i]) {
-          if (a.annotationType() == QueryParam.class) {
-            queryParamsList.add(((QueryParam) a).value());
+          if (a.annotationType() == ParamNote.class) {
+            pd.setDescription(((ParamNote) a).value());
+          }
+          else if (a.annotationType() == QueryParam.class) {
+            pd.setName(((QueryParam) a).value());
+            queryParamsList.add(pd);
           }
           else if (a.annotationType() == PathParam.class) {
-            pathParamsList.add(((PathParam) a).value());
+            pd.setName(((PathParam) a).value());
+            pathParamsList.add(pd);
           }
         }
         md.setQueryParams(queryParamsList);

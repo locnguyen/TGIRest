@@ -17,7 +17,7 @@ public @interface MethodError {
    * The HTTP status code for the occurring error. Required if you're
    * going to document errors at all.
    *
-   * @return
+   * @return the HTTP status
    */
   Response.Status status();
 
@@ -26,7 +26,7 @@ public @interface MethodError {
    * Required so the documentation tells the reader why the error condition
    * is reached.
    *
-   * @return
+   * @return the reason for the error
    */
   String cause();
 }
