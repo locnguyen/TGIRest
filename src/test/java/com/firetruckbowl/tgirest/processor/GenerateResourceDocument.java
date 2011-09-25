@@ -89,7 +89,7 @@ public class GenerateResourceDocument {
   }
 
   @Test
-  public void shouldGenerateMethodDocuments() {
+  public void shouldGenerateMethodDocumentsForAnnotatedMethods() {
     // given
     Documented resource = new FooResource();
 
@@ -97,7 +97,7 @@ public class GenerateResourceDocument {
     ResourceDocument rd = systemUnderTest.generateResourceDocument(uriInfo, resource);
 
     // then
-    assertThat(rd.getMethodDocuments().size(), equalTo(resource.getClass().getMethods().length));
+    assertThat(rd.getMethodDocuments().size(), equalTo(1));
   }
 
   /**

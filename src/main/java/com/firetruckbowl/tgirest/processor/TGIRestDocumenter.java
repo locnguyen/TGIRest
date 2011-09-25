@@ -52,7 +52,9 @@ public class TGIRestDocumenter implements Documenter {
 
     // -- Generate documentation for each resource method
     for (Method m : resource.getClass().getMethods()) {
-      resourceDocument.addMethodDocument(generateMethodDocument(uriInfo, m));
+      if (m.getAnnotation(ResourceMethod.class) != null) {
+        resourceDocument.addMethodDocument(generateMethodDocument(uriInfo, m));
+      }
     }
 
     return resourceDocument;
@@ -60,6 +62,11 @@ public class TGIRestDocumenter implements Documenter {
 
   @Override
   public MethodDocument generateMethodDocument(@Context UriInfo uriInfo, Method method) {
+    ResourceMethod rm = method.getAnnotation(ResourceMethod.class);
+    if (rm == null) {
+      throw new IllegalArgumentException("Can't generate document unless method is annotated with @ResourceMethod");
+    }
+
     MethodDocument md = new MethodDocument();
 
     // --- Process JAX-RS annotations
