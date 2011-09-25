@@ -1,10 +1,8 @@
 package com.firetruckbowl.tgirest.resource;
 
 import javax.ws.rs.OPTIONS;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.*;
 
 /**
  * Provides an interface for top level resources to return their
@@ -23,5 +21,6 @@ public interface Documented {
    * @return the class' documentation
    */
   @OPTIONS
+  @Produces(MediaType.APPLICATION_JSON)
   Response getDocumentation(@Context UriInfo uriInfo, @Context HttpHeaders httpHeaders);
 }
