@@ -63,7 +63,7 @@ public class GenerateMethodDocument {
     MethodDocument document =  systemUnderTest.generateMethodDocument(uriInfo, m);
 
     // then
-    assertThat(document.getPath(), is(BASE_URI + "bar/{id}"));
+    assertThat(document.getPath(), is(BASE_URI + "foo/bar/{id}"));
   }
 
   @Test

@@ -70,9 +70,10 @@ public class TGIRestDocumenter implements Documenter {
     MethodDocument md = new MethodDocument();
 
     // --- Process JAX-RS annotations
-    Path path = method.getAnnotation(Path.class);
-    if (path != null) {
-      md.setPath(uriInfo.getBaseUri().toString() + path.value());
+    Path methodPath = method.getAnnotation(Path.class);
+    if (methodPath != null) {
+      Path rootResourcePath = method.getDeclaringClass().getAnnotation(Path.class);
+      md.setPath(uriInfo.getBaseUri().toString() + rootResourcePath.value() + "/" + methodPath.value());
     }
 
     md.setHttpMethod(getHttpMethod(method));
