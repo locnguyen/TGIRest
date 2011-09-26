@@ -93,8 +93,11 @@ public class TGIRestDocumenter implements Documenter {
     List<ParamDocument> pathParamsList = new ArrayList<ParamDocument>();
 
     if (methodPrams != null && methodPrams.length > 0) {
+      // For each parameter of the method
       for (int i = 0; i < methodPrams.length; i ++) {
         ParamDocument pd = new ParamDocument();
+
+        // For each annotation of the parameter check to see what type it is
         for (Annotation a: methodPrams[i]) {
           if (a.annotationType() == ParamNote.class) {
             pd.setDescription(((ParamNote) a).value());
@@ -148,6 +151,12 @@ public class TGIRestDocumenter implements Documenter {
     return httpMethod;
   }
 
+  /**
+   * Gets the error documentation for the resource method annotation.
+   *
+   * @param resourceMethod
+   * @return a list of ResponseErrors in the parameter
+   */
   public List<ResponseError> getResponseErrors(ResourceMethod resourceMethod) {
     List<ResponseError> errors = new ArrayList<ResponseError>();
 
