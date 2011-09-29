@@ -1,13 +1,13 @@
 #Project Info
 TGIRest facilitates documentation of a JAX-RS REST API. Eventually it should encourage development that meets the hypermedia constraint (HATEOAS).
 
-The library provides annotations make it easy to describe your restful resources. Having a means to do this directly in the code means one less excuse for complete and useful documentation. Because the implementation and the meta data are right next to each other, maintenance should be easy as well.
+The library provides annotations that make it easy to describe your restful resources. Having a means to do this directly in the code means one less excuse for complete and useful documentation. Because the implementation and the meta data are right next to each other, maintenance should be easy as well.
 
 ##Dependencies
-The number of dependencies have been kept to a minimum so integration with existing an API is easy (hopefully). TGIRest relies on JSR-311 which provides JAX-RS interfaces and SLF4J for logging. There are other dependencies but those fall under the test scope.
+The number of dependencies are kept to a minimum so integration with existing an API is easy (hopefully). TGIRest relies on JSR-311 which provides JAX-RS interfaces and SLF4J for logging. There are other dependencies but those fall under the test scope.
 
 ##Background
-This project started after I spent a lot of time trying to document a Java based REST API I was building at work. I recently stumbled on Swagger/Klout and found it to be a good start but I spent way too much time trying to integrate it in. Eventually I did finish but came away with some motivations to create my own library.
+This project started after I spent a lot of time trying to document a Java based REST API I built at work. I recently stumbled on Swagger/Klout and found it to be a good start but spent too much time trying to integrate. Eventually I did finish but came away with some motivations to create my own library.
 
 ##Goals
 1. The server side component should have minimal dependencies.
