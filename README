@@ -4,3 +4,15 @@ The library provides annotations that make it simple to describe your restful re
 
 The number of dependencies have been kept to a minimum so integration with existing an API is easier (hopefully). TGIRest only relies on JSR-311 which provides JAX-RS interfaces and SLF4J for logging. There are other dependencies but those fall under the test scope.
 
+This project started after I spent a lot of time trying to document a Java based REST API I was building at work. I recently stumbled on Swagger/Klout and found it to be a good start but I spent way too much time trying to integrate it in. Eventually I did finish but came away with some motivations to create my own library.
+
+1. The server side component should have minimal dependencies.
+1a. It should not be a mix of JVM languages. Sticking with one - Java - will make it easier for users to understand.
+1b. Developers should be able to use the library with any JAX-RS implementation (Resteasy, Jersey, etc).
+
+2. The server side component should "just work".
+2a. It should not collide with already defined URIs.
+2b. It should be easy for developers to extend with their own annotations.
+2c. It should have some tests to make 2b easier.
+
+There is a good 37signals blog post regarding API documentation. Check it out! http://37signals.com/svn/posts/3018-api-design-for-humans
